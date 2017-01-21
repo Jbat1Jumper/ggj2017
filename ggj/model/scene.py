@@ -12,8 +12,7 @@ TUBE_CAPACITY = 6
 
 class Scene(object):
 
-    def __init__(self, seed=7):
-        random.seed(seed)
+    def __init__(self):
         self.table = Table()
         self.left_tube = Tube()
         self.right_tube = Tube()
@@ -99,7 +98,7 @@ class Table(object):
 
     def __str__(self):
         s = ''
-        for row in self.matrix:
+        for row in reversed(self.matrix):
             s += ' '.join(str(ball) if ball else '(-)' for ball in row) + '\n'
         return s
 
