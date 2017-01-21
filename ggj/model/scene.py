@@ -81,10 +81,14 @@ class Table(object):
                 self.matrix[i].append(Ball.create_random_ball())
 
     def remove_from_left(self, y):
-        return self.remove_from_xy(0, y)
+        for i in range(self.x):
+            if self.matrix[y][i]:
+                return self.remove_from_xy(i, y)
 
     def remove_from_right(self, y):
-        return self.remove_from_xy(self.x - 1, y)
+        for i in reversed(range(self.x)):
+            if self.matrix[y][i]:
+                return self.remove_from_xy(i, y)
 
     def remove_from_xy(self, x, y):
         row = self.matrix[y]
@@ -123,6 +127,8 @@ class Tube(object):
         self.balls = deque(None for i in range(capacity))
 
     def add_ball(self, ball):
+        if ball is None:
+            return
         self.balls.appendleft(ball)
         if len(self.balls) > self.capacity:
             return self.balls.pop()
