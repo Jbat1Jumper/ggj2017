@@ -5,9 +5,9 @@ from collections import deque
 
 
 COLORS = (1, 2, 3, 4, 5)
-TABLE_WIDTH = 6
+TABLE_WIDTH = 7
 TABLE_HEIGTH = 4
-TUBE_CAPACITY = 6
+TUBE_CAPACITY = 5
 
 
 class Scene(object):
@@ -106,13 +106,36 @@ class Table(object):
         return ball
 
     def insert_ball_into_xy(self, x, y, ball):
+        """
+        Moves the row, inserts the ball in the new place and returns the
+        index of the inserted ball.
+        """
         row = self.matrix[y]
         row = row[x+1:] + [ball] + row[:x]
         self.matrix[y] = row
-        return len(row[x+1:])
+        return len(list(x for x in row[x+1:] if x)) + 1
 
     def add_ball_to_xy(self, x, y, ball):
         self.matrix[y][x] = ball
+
+    def add_ball_at_the_top(self, ball, pos=None):
+        """
+        Adds the ball at the top of the table. If position is not
+        specified, adds the ball into random empty cell.
+        """
+        top_y = self.y - 1
+        if pos is None:
+            pos = random.choice([i for i, x in enumerate(self.matrix[top_y]) if not x])
+        self.add_ball_to_xy(pos, top_y, ball)
+        if self.balls_fall:
+            self.let_the_ball_fall(pos, top_y, ball)
+
+    def let_the_ball_fall(self, x, y, ball):
+        for i in range(0, y):
+            if not self.matrix[i][x]:
+                self.add_ball_to_xy(x, i, ball)
+                self.add_ball_to_xy(x, y, None)
+                break
 
     def __str__(self):
         s = ''
