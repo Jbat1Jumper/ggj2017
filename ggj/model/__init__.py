@@ -4,7 +4,10 @@ import random
 from .scene import Scene
 from .player import Player
 from .sniffer import Sniffer
-from .objectives import PatternObjective
+from .objectives import PatternObjectivesGenerator
+
+NUMBER_OF_OBJECTIVES = 3
+PATTERN_LENGTH = 3
 
 
 class Model(object):
@@ -16,8 +19,8 @@ class Model(object):
         self.left_player = Player()
         self.right_player = Player()
 
-        # Hardcoded objective
-        self.objective = PatternObjective(self, [1, 5, 4])
+        number, length = NUMBER_OF_OBJECTIVES, PATTERN_LENGTH
+        self.objectives_gen = PatternObjectivesGenerator(self, number, length)
 
         # Random?
         self.currently_left = True
@@ -42,7 +45,7 @@ class Model(object):
         self.ball_from_table = self.scene.table.remove_from_left(pos)
         self.ball_from_tube = self.scene.left_tube.add_ball(self.ball_from_table)
         if self.ball_from_tube:
-            self.table.add_ball_at_the_top(self.ball_from_tube)
+            self.scene.table.add_ball_at_the_top(self.ball_from_tube)
 
     def right(self):
         if self.currently_left:
@@ -52,19 +55,30 @@ class Model(object):
         self.ball_from_table = self.scene.table.remove_from_right(pos)
         self.ball_from_tube = self.scene.right_tube.add_ball(self.ball_from_table)
         if self.ball_from_tube:
-            self.table.add_ball_at_the_top(self.ball_from_tube)
+            self.scene.table.add_ball_at_the_top(self.ball_from_tube)
 
     @property
-    def tube(self):
-        """ Returns current player's tube """
-        return self.scene.left_tube if self.currently_left else self.scene.right_tube
+    def objectives(self):
+        return self.objectives_gen.objectives
 
     def switch_player(self):
         self.currently_left = not self.currently_left
+
+    def check_conditions(self):
+        result = (False, False)
+        for obj in self.objectives:
+            if obj.check_conditions(self.scene.left_tube):
+                result[0] = True
+            if obj.check_conditions(self.scene.right_tube):
+                result[1] = True
+            if any(result):
+                self.objectives_gen.replace_objective(obj)
+                break
+        return result
 
     def check_win_conditions(self):
         return self.objective.check_conditions()
 
     def __str__(self):
-        s = 'Condition: ' + str(self.objective) + '\n\n'
+        s = 'Conditions: ' + ' | '.join(str(x) for x in self.objectives) + '\n\n'
         return s + str(self.scene)
