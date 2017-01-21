@@ -1,3 +1,4 @@
 *.py[cod]
+.virtualenv/*
 
 .DS_Store
