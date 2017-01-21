@@ -1,21 +1,21 @@
-from pyxit.entity import Entity
+from pyxit.player_sprite import PlayerSprite
 import pygame as pg
 
 
-class Ball(Entity):
+class Ball(PlayerSprite):
 
     def __init__(self, game, ref, pos):
-        super(Ball, self).__init__(game, pos.x, pos.y)
+        self.sprite_layer = 'Layer 0'
+        super(Ball, self).__init__(game, './assets/frutas.pyxel', pos.x, pos.y)
         self.ref = ref
-
-    def render(self):
-        surface = pg.Surface((16, 16), pg.SRCALPHA)
-        color = {
-            1: (255, 0, 0),
-            2: (0, 255, 0),
-            3: (0, 0, 255),
-            4: (235, 0, 235),
-            5: (235, 235, 0)
+        animation = {
+            1: 'berry_rosa',
+            2: 'berry_naranja',
+            3: 'berry_verde',
+            4: 'berry_amarilla',
+            5: 'berry_azul',
         }[self.ref.color]
-        pg.draw.ellipse(surface, color, (0, 0, 16, 16))
-        return surface
+        self.change_to(animation)
+
+    def animate(self, delta):
+        self.advance(delta)
