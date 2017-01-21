@@ -9,5 +9,5 @@ class GamePhase(object):
     def entity_deleted(self, entity):
         pass
 
-    def run_phase(self, entities):
+    def run_phase(self, entities, delta):
         pass

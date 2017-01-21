@@ -1,8 +1,10 @@
 
 from pyxit.game import Game
-from pyxit.game_phase import GamePhase
-from pyxit.tile_map import TileMap
-from pyxit.entity import PhysicalEntity
+from .phases import (
+    StateMachinePhase,
+    EventsPhase
+)
+from .states import SelectRowState
 
 
 class CustomGame(Game):
@@ -11,13 +13,8 @@ class CustomGame(Game):
         super(CustomGame, self).__init__()
 
     def load(self):
-        self.add_phase(CustomPhase(self))
+        self.events = EventsPhase(self)
+        self.state_machine = StateMachinePhase(self, SelectRowState(self))
 
-
-class CustomPhase(GamePhase):
-
-    def __init__(self, game):
-        self.game = game
-
-    def run_phase(self, entities, delta):
-        print('I\'m custom phase and i\'m running!')
+        self.add_phase(self.events)
+        self.add_phase(self.state_machine)

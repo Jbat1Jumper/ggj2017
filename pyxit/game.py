@@ -11,6 +11,7 @@ class Game(object):
         self.time = 0.0
         self.running = False
         self.screen = None
+        self.screen_size = (12 * 32, 10 * 32)
 
     def add_phase(self, phase):
         self.phases.append(phase)
@@ -32,7 +33,7 @@ class Game(object):
     def start(self):
         pg.init()
         pg.display.set_caption('Pygame + Pyxel Edit (Test 2)')
-        pg.display.set_mode((224 * 4, 128 * 4))
+        pg.display.set_mode(self.screen_size)
         self.clock = pg.time.Clock()
         self.screen = pg.display.get_surface()
 

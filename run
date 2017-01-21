@@ -8,6 +8,6 @@ sys.path.append(GAME_DIR)
 os.chdir(GAME_DIR)
 
 if __name__ == '__main__':
-    from ggj import CustomGame
+    from ggj.custom_game import CustomGame
     g = CustomGame()
     g.run()
