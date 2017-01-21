@@ -22,7 +22,7 @@ class TileMap(object):
 
     def load(self):
         with ZipFile(self.path) as zip:
-            data = loads(zip.open('docData.json').read())
+            data = loads(zip.open('docData.json').read().decode('utf-8'))
 
             entities = []
             sorted_layers = sorted(data['canvas']['layers'].items(),
