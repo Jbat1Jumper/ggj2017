@@ -6,6 +6,7 @@ from .phases import (
     ModelMatcherPhase
 )
 from .states import SelectRowState
+from .model import Model
 
 
 class CustomGame(Game):
@@ -14,7 +15,7 @@ class CustomGame(Game):
         super(CustomGame, self).__init__()
 
     def load(self):
-        self.model = None
+        self.model = Model(seed=7)
 
         self.events = EventsPhase(self)
         self.state_machine = StateMachinePhase(self, SelectRowState(self))
