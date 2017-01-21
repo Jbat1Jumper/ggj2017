@@ -2,7 +2,8 @@ from pyxit.game_phase import GamePhase
 from pyxit.vec import Vec
 from ..entities import (
     Tube,
-    Ball
+    Ball,
+    Magnet
 )
 from ..model import Sniffer
 
@@ -23,6 +24,16 @@ class ModelMatcherPhase(GamePhase):
         rt = Tube.right_one(self.game)
         self.right_tube = rt
         self.game.create_entity(rt)
+
+        lm = Magnet(self.game, self.left_magnet_position(),
+                    is_left=True)
+        self.left_magnet = lm
+        self.game.create_entity(lm)
+
+        rm = Magnet(self.game, self.right_magnet_position(),
+                    is_left=False)
+        self.right_magnet = rm
+        self.game.create_entity(rm)
 
         ball_data = self.sniffer.get_balls()
 
@@ -49,3 +60,13 @@ class ModelMatcherPhase(GamePhase):
         model matrix to (x,y) in the world """
         return Vec(TILE * 7 + TILE * x,
                    TILE * 6 + TILE * y)
+
+    def left_magnet_position(self):
+        i = self.sniffer.get_left_magnet_position()
+        return Vec(TILE * 4,
+                   TILE * 5 + TILE * i)
+
+    def right_magnet_position(self):
+        i = self.sniffer.get_right_magnet_position()
+        return Vec(TILE * 16,
+                   TILE * 5 + TILE * i)

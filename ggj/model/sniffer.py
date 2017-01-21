@@ -36,3 +36,9 @@ class Sniffer():
 
     def get_ball_from_tube(self):
         return self.game.model.ball_from_tube
+
+    def get_left_magnet_position(self):
+        return self.model.scene.left_magnet.current_pos
+
+    def get_right_magnet_position(self):
+        return self.model.scene.right_magnet.current_pos
