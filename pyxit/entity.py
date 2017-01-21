@@ -8,13 +8,14 @@ class Vec(object):
 
 
 class Entity(object):
-    def __init__(self, x, y):
+    def __init__(self, game, x, y):
+        self.game = game
         self.pos = Vec(x, y)
 
 
 class PhysicalEntity(Entity):
-    def __init__(self, x, y, w, h):
-        super(PhysicalEntity, self).__init__(x, y)
+    def __init__(self, game, x, y, w, h):
+        super(PhysicalEntity, self).__init__(game, x, y)
         self.w = w
         self.h = h
         self.x_speed = 0
