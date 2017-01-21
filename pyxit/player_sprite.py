@@ -1,5 +1,5 @@
 import pygame as pg
-from cStringIO import StringIO
+from io import BytesIO
 from zipfile import ZipFile
 from json import loads
 from pyxit.entity import PhysicalEntity
@@ -7,9 +7,10 @@ from pyxit.entity import PhysicalEntity
 
 class PlayerSprite(PhysicalEntity):
 
-    def __init__(self, path, x, y):
-        super(PlayerSprite, self).__init__(x, y, 1, 1)  # (1, 1) is temporary
+    def __init__(self, game, path, x, y):
+        super(PlayerSprite, self).__init__(game, x, y, 1, 1)  # (1, 1) is temporary
         self.static = False
+        self.sprite_layer = self.sprite_layer if hasattr(self, 'sprite_layer') else 'Sprite'
         self.animations = {}
         self.current_animation = None
         self.current_milliseconds = 0
@@ -18,10 +19,10 @@ class PlayerSprite(PhysicalEntity):
 
     def _read_spritesheet(self, path):
         with ZipFile(path) as zip:
-            data = loads(zip.open('docData.json').read())
+            data = loads(zip.open('docData.json').read().decode('utf-8'))
 
             layer_file, layer_data = self._get_sprite_layer(zip, data)
-            layer_surface = pg.image.load(StringIO(zip.read(layer_file)),
+            layer_surface = pg.image.load(BytesIO(zip.read(layer_file)),
                                           layer_file)
 
             tile_width = data['canvas']['tileWidth']
@@ -62,9 +63,9 @@ class PlayerSprite(PhysicalEntity):
 
     def _get_sprite_layer(self, zip, data):
         for index, layer in data['canvas']['layers'].items():
-            if layer['name'] == 'Sprite':
+            if layer['name'] == self.sprite_layer:
                 return 'layer{}.png'.format(index), layer
-        raise Exception('theres no "Sprite" layer in {}'.format(zip.name))
+        raise Exception('theres no "{}" layer in {}'.format(self.sprite_layer, zip))
 
     def render(self):
         c = 0
