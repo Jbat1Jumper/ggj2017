@@ -22,9 +22,11 @@ class ModelMatcherPhase(GamePhase):
 
         ball_data = self.sniffer.get_balls()
 
-        for ball, location in ball_data.items():
+        for model_ball, location in ball_data.items():
             if location[0] == 'left tube':
-                self.left_tube.position_for(location[1])
+                pos = self.left_tube.position_for(location[1])
+                ball = Ball(self.game, model_ball, pos)
+                self.game.create_entity(ball)
 
     def run_phase(self, entities, delta):
         pass
