@@ -14,13 +14,61 @@ class Scene(object):
 
     def __init__(self, seed=7):
         random.seed(seed)
-        self.table = Table(self.seed)
+        self.table = Table()
         self.left_tube = Tube()
         self.right_tube = Tube()
+        self.left_magnet = Magnet()
+        self.right_magnet = Magnet(left=False)
+
+    def __str__(self):
+        l_t = str(self.left_tube).split('\n')
+        l_m = str(self.left_magnet).split('\n')
+        r_t = str(self.right_tube).split('\n')
+        r_m = str(self.right_magnet).split('\n')
+        t = str(self.table).split('\n')
+
+        offset = len(l_t) - len(l_m)
+        r = ''
+        # tube width = 3, magnet width = 2, table width = table.x * 4
+        for y in range(self.left_tube.capacity):
+            if y >= offset:
+                j = y - offset
+                line = ' '.join([l_t[y], l_m[j], t[j], r_m[j], r_t[y]])
+            else:
+                line = ' '.join([l_t[y], ' ' * (2 * 3 + self.table.x * 4) + r_t[y]])
+            r += line + '\n'
+
+        return r
 
 
 class Magnet(object):
-    pass
+    """
+    Warning, y argument is counted from 1, while y and current_pos
+    attributes are counted from 0.
+    """
+
+    def __init__(self, y=TABLE_HEIGTH, left=True):
+        self.left = left
+        self.y = y - 1
+        self.current_pos = y - 1
+
+    def move_up(self):
+        if self.current_pos < self.y:
+            self.current_pos += 1
+
+    def move_down(self):
+        if self.current_pos > 0:
+            self.current_pos -= 1
+
+    def __str__(self):
+        r = ''
+        for i in reversed(range(self.y + 1)):
+            if i == self.current_pos:
+                r += '|>' if self.left else '<|'
+            else:
+                r += '| ' if self.left else ' |'
+            r += '\n'
+        return r[:-1]
 
 
 class Table(object):
@@ -52,7 +100,7 @@ class Table(object):
     def __str__(self):
         s = ''
         for row in self.matrix:
-            s += ' '.join(str(ball) for ball in row) + '\n'
+            s += ' '.join(str(ball) if ball else '(-)' for ball in row) + '\n'
         return s
 
 
@@ -73,7 +121,7 @@ class Tube(object):
 
     def __init__(self, capacity=TUBE_CAPACITY):
         self.capacity = capacity
-        self.balls = deque()
+        self.balls = deque(None for i in range(capacity))
 
     def add_ball(self, ball):
         self.balls.appendleft(ball)
@@ -88,4 +136,5 @@ class Tube(object):
         return t
 
     def __str__(self):
-        return '\n'.join('|' + str(ball) + '|' for ball in reversed(self.balls))
+        return '\n'.join('|' + str(self.balls[i] or '(-)') + '|'
+                         for i in reversed(range(self.capacity)))
