@@ -22,7 +22,7 @@ class Tube(Entity):
         return t
 
     def position_for(self, index):
-        v_offset = TILE * 6
+        v_offset = TILE * 5
         return Vec(self.pos.x + self.body_h_offset,
                    self.pos.y + v_offset - TILE * index)
 

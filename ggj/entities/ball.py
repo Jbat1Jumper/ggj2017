@@ -10,11 +10,12 @@ class Ball(Entity):
 
     def render(self):
         surface = pg.Surface((16, 16), pg.SRCALPHA)
-        surface.fill({
+        color = {
             1: (255, 0, 0),
             2: (0, 255, 0),
             3: (0, 0, 255),
             4: (235, 0, 235),
             5: (235, 235, 0)
-        }[self.ref.color])
+        }[self.ref.color]
+        pg.draw.ellipse(surface, color, (0, 0, 16, 16))
         return surface
