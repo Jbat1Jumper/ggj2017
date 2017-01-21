@@ -12,8 +12,7 @@ TUBE_CAPACITY = 6
 
 class Scene(object):
 
-    def __init__(self, seed=7):
-        random.seed(seed)
+    def __init__(self):
         self.table = Table()
         self.left_tube = Tube()
         self.right_tube = Tube()
@@ -82,10 +81,14 @@ class Table(object):
                 self.matrix[i].append(Ball.create_random_ball())
 
     def remove_from_left(self, y):
-        return self.remove_from_xy(0, y)
+        for i in range(self.x):
+            if self.matrix[y][i]:
+                return self.remove_from_xy(i, y)
 
     def remove_from_right(self, y):
-        return self.remove_from_xy(self.x - 1, y)
+        for i in reversed(range(self.x)):
+            if self.matrix[y][i]:
+                return self.remove_from_xy(i, y)
 
     def remove_from_xy(self, x, y):
         row = self.matrix[y]
@@ -99,7 +102,7 @@ class Table(object):
 
     def __str__(self):
         s = ''
-        for row in self.matrix:
+        for row in reversed(self.matrix):
             s += ' '.join(str(ball) if ball else '(-)' for ball in row) + '\n'
         return s
 
@@ -124,6 +127,8 @@ class Tube(object):
         self.balls = deque(None for i in range(capacity))
 
     def add_ball(self, ball):
+        if ball is None:
+            return
         self.balls.appendleft(ball)
         if len(self.balls) > self.capacity:
             return self.balls.pop()
