@@ -1,2 +1,2 @@
 
-from custom_game import CustomGame
+from .custom_game import CustomGame

@@ -20,4 +20,4 @@ class CustomPhase(GamePhase):
         self.game = game
 
     def run_phase(self, entities, delta):
-        print 'I\'m custom phase and i\'m running!'
+        print('I\'m custom phase and i\'m running!')

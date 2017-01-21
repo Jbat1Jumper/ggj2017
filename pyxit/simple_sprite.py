@@ -1,5 +1,5 @@
 import pygame as pg
-from cStringIO import StringIO
+from io import StringIO
 from pyxit.entity import Entity
 
 

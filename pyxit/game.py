@@ -37,6 +37,6 @@ class Game(object):
         self.screen = pg.display.get_surface()
 
     def quit(self):
-        print 'GAME OVER'
+        print('GAME OVER')
         pg.quit()
         quit()
