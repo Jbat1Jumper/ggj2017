@@ -3,6 +3,7 @@ import random
 
 from .scene import Scene
 from .player import Player
+from .sniffer import Sniffer
 from .objectives import PatternObjective
 
 

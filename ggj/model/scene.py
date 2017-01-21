@@ -72,8 +72,9 @@ class Magnet(object):
 
 class Table(object):
 
-    def __init__(self, x=TABLE_WIDTH, y=TABLE_HEIGTH):
+    def __init__(self, x=TABLE_WIDTH, y=TABLE_HEIGTH, balls_fall=True):
         self.x, self.y = x, y
+        self.balls_fall = balls_fall
         self.matrix = []
         for i in range(y):
             self.matrix.append([])
@@ -91,14 +92,27 @@ class Table(object):
                 return self.remove_from_xy(i, y)
 
     def remove_from_xy(self, x, y):
-        row = self.matrix[y]
-        ball = row[x]
-        row = row[x+1:] + [None] + row[:x]
-        self.matrix[y] = row
+        if self.balls_fall:
+            ball = self.matrix[y][x]
+            new_x = self.insert_ball_into_xy(x, y, None)
+            for i in range(y, self.y):
+                if i + 1 < self.y:
+                    top_ball = self.matrix[i+1][new_x]
+                    self.add_ball_to_xy(new_x, i, top_ball)
+                    self.add_ball_to_xy(new_x, i + 1, None)
+        else:
+            ball = self.matrix[y][x]
+            self.insert_ball_into_xy(x, y, None)
         return ball
 
+    def insert_ball_into_xy(self, x, y, ball):
+        row = self.matrix[y]
+        row = row[x+1:] + [ball] + row[:x]
+        self.matrix[y] = row
+        return len(row[x+1:])
+
     def add_ball_to_xy(self, x, y, ball):
-        self.matrix[x][y] = ball
+        self.matrix[y][x] = ball
 
     def __str__(self):
         s = ''
