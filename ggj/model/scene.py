@@ -94,15 +94,13 @@ class Table(object):
     def remove_from_xy(self, x, y):
         if self.balls_fall:
             ball = self.matrix[y][x]
-            new_x = self.insert_ball_into_xy(x, y, None)
-            for i in range(y, self.y):
-                if i + 1 < self.y:
-                    top_ball = self.matrix[i+1][new_x]
-                    self.add_ball_to_xy(new_x, i, top_ball)
-                    self.add_ball_to_xy(new_x, i + 1, None)
+            self.insert_ball_into_xy(x, y, None)
         else:
             ball = self.matrix[y][x]
             self.insert_ball_into_xy(x, y, None)
+
+        if self.balls_fall:
+            self.propagate_falling()
         return ball
 
     def insert_ball_into_xy(self, x, y, ball):
@@ -113,7 +111,13 @@ class Table(object):
         row = self.matrix[y]
         row = row[x+1:] + [ball] + row[:x]
         self.matrix[y] = row
+
         return len(list(x for x in row[x+1:] if x)) + 1
+
+    def propagate_falling(self):
+        for y in range(1, self.y):
+            for x in range(0, self.x):
+                self.let_the_ball_fall(x, y, self.matrix[y][x])
 
     def add_ball_to_xy(self, x, y, ball):
         self.matrix[y][x] = ball
