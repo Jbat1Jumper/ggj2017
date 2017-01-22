@@ -35,10 +35,10 @@ class Magnet(PlayerSprite):
 
     def push(self, is_pull=False):
         if is_pull:
-            self.change_to('sendwavesin')
+            self.change_to('sendwavesin', 0)
         else:
-            self.change_to('sendwavesout')
+            self.change_to('sendwavesout', 0)
 
         def callback():
             self.change_to('idle')
-        self.game.animation.create(800, None, callback)
+        self.game.animation.create(900, None, callback)
