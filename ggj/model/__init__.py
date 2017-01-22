@@ -13,8 +13,9 @@ MAX_SCORE = 9
 
 class Model(object):
 
-    def __init__(self, seed=7):
-        random.seed(seed)
+    def __init__(self, seed=None):
+        if seed:
+            random.seed(seed)
 
         self.scene = Scene()
         self.left_player = Player()

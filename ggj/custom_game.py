@@ -27,11 +27,15 @@ class CustomGame(Game):
         self.screen_size = self.tilemap_size[0] * 3, self.tilemap_size[1] * 3
 
     def load(self):
-        self.model = Model(seed=7)
 
         prepare_props(self)
 
         create_background(self)
+
+        self.initialize()
+
+    def initialize(self):
+        self.model = Model()
 
         self.events = EventsPhase(self)
         self.animation = AnimationPhase(self)
@@ -48,3 +52,16 @@ class CustomGame(Game):
         self.add_phase(self.model_matcher)
         self.add_phase(self.animation)
         self.add_phase(self.render)
+
+    def restart(self):
+        self.running = False
+        self.time = 0.0
+        self.phases = []
+        self.entities = []
+
+        prepare_props(self)
+
+        create_background(self)
+        self.initialize()
+
+        self.running = True

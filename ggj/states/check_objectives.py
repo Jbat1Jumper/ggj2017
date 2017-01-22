@@ -51,4 +51,5 @@ class GameFinishedState(BaseState):
 
     def enter(self):
         print('Entering game finished')
+        self.game.restart()
         # game finished
