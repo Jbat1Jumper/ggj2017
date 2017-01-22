@@ -50,16 +50,16 @@ def create_nahuelito(game):
                      sprite_layer='Layer 0')
     n.flip()
     game.create_entity(n)
-    game.props['n_izq_cabeza'] = n
+    game.props['n_der_cabeza'] = n
 
     n = PlayerSprite(game, 'assets/cuerpo nahuelito.pyxel', 16 * 17, 16 * 7,
                      sprite_layer='Layer 0')
     n.flip()
     game.create_entity(n)
-    game.props['n_izq_cuerpo'] = n
+    game.props['n_der_cuerpo'] = n
 
     n = PlayerSprite(game, 'assets/culo de nahuelito.pyxel', 16 * 17, 16 * 6,
                      sprite_layer='Layer 0')
     n.flip()
     game.create_entity(n)
-    game.props['n_izq_culo'] = n
+    game.props['n_der_culo'] = n
