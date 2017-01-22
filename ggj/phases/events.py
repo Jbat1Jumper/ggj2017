@@ -7,10 +7,14 @@ class EventsPhase(GamePhase):
     def __init__(self, game):
         self.game = game
         self.keymap = {
-            'a': 'left',
-            'd': 'right',
-            'w': 'up',
-            's': 'down',
+            'a': 'left_left',
+            'd': 'right_left',
+            'w': 'up_left',
+            's': 'down_left',
+            'left': 'left_right',
+            'right': 'right_right',
+            'up': 'up_right',
+            'down': 'down_right',
             'p': 'swap_player'
         }
 
