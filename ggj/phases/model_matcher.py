@@ -38,6 +38,7 @@ class ModelMatcherPhase(GamePhase):
         self.game.create_entity(rm)
 
         ball_data = self.sniffer.get_balls()
+        self.old_ball_data = ball_data
 
         if DEBUG:
             for k, v in ball_data.items():
@@ -59,32 +60,37 @@ class ModelMatcherPhase(GamePhase):
                                        pos=self.right_scorebar_position())
         self.game.create_entity(self.right_scorebar)
 
-    def run_phase(self, entities, delta):
+    def get_current_row_balls(self):
+        p = self.sniffer.get_current_magnet_position()
+        r = []
+        for b, l in self.old_ball_data.items():
+            if l[0] == 'table' and l[2] == p:
+                r.append(b)
+        return r
 
+    def update_positions(self):
+        self.update_left_magnet_position()
+        self.update_right_magnet_position()
+        self.update_ball_positions(self.game.entities)
+
+    def update_left_magnet_position(self):
+        new_pos = self.left_magnet_position()
+        if self.left_magnet.pos != new_pos:
+            self.left_magnet.move(new_pos)
+
+    def update_right_magnet_position(self):
+        new_pos = self.right_magnet_position()
+        if self.right_magnet.pos != new_pos:
+            self.right_magnet.move(new_pos)
+
+    def update_ball_positions(self, entities):
         balls_data = self.sniffer.get_balls()
-        lm_pos = self.left_magnet_position()
-        rm_pos = self.right_magnet_position()
-
-        if DEBUG:
-            for k, v in balls_data.items():
-                print(k, ':', v)
-
         for entity in entities:
             if isinstance(entity, Ball):
                 location = balls_data[entity.ref]
                 new_pos = self.ball_position(location)
-                entity.move(new_pos)
-            elif isinstance(entity, Tube):
-                pass
-            elif isinstance(entity, Magnet):
-                if entity.is_left:
-                    entity.move(lm_pos)
-                else:
-                    entity.move(rm_pos)
-            elif isinstance(entity, Objective):
-                pass
-            elif isinstance(entity, ScoreBar):
-                pass
+                if entity.pos != new_pos:
+                    entity.move(new_pos)
 
     def ball_position(self, location):
         if location[0] == 'left tube':
