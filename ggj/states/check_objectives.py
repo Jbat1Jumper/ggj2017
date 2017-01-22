@@ -7,7 +7,11 @@ class CheckObjectivesState(BaseState):
 
     def enter(self):
         print('Entering check objectives')
-        left, right = self.game.model.check_objectives()
+        left, right, old_obj, new_obj = self.game.model.check_objectives()
+        if old_obj and new_obj:
+            print('Changing objectives!')
+            self.game.model_matcher.update_objective(old_obj, new_obj)
+
         self.game.animation.create(500, None, self.animation_ended)
 
     def animation_ended(self):

@@ -73,7 +73,7 @@ class Model(object):
         self.currently_left = not self.currently_left
 
     def check_objectives(self):
-        result = [False, False]
+        result = [False, False, None, None]
         for obj in self.objectives:
             if obj.check_conditions(self.scene.left_tube):
                 self.score.add_to_left(obj)
@@ -82,7 +82,8 @@ class Model(object):
                 self.score.add_to_right(obj)
                 result[1] = True
             if any(result):
-                self.objectives_gen.replace_objective(obj)
+                result[2] = obj
+                result[3] = self.objectives_gen.replace_objective(obj)
                 break
         return result
 

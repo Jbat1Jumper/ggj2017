@@ -61,6 +61,7 @@ class PatternObjectivesGenerator(object):
                 pass
         new_obj = PatternObjective(self.model, random.sample(balls, self.length))
         self.objectives.append(new_obj)
+        return new_obj
 
 
 class Score(object):
