@@ -14,11 +14,11 @@ class ScoreBar(Entity):
 
         self.sprites = []
         for i in range(self.length):
-            sprite = PlayerSprite(self.game, './assets/barra.pyxel', 0, 0, sprite_layer='Layer 0')
+            sprite = PlayerSprite(self.game, './assets/barra.pyxel', 0, 0)
             if i == 0:
-                sprite.change_to('inicio', milliseconds=400)
+                sprite.change_to('inicio', milliseconds=0)
             elif i == self.length - 1:
-                sprite.change_to('fin', milliseconds=300)
+                sprite.change_to('fin', milliseconds=0)
             else:
                 sprite.change_to('medio')
             self.sprites.append(sprite)
