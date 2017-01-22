@@ -36,7 +36,7 @@ class EventsPhase(GamePhase):
 
     def process_key(self, key, where):
         sm = self.game.state_machine
-        s = sm.current_state()
+        s = sm.get_current()
         m = 'on_{}_{}'.format(self.keyname(key), where)
         if hasattr(s, m):
             m = getattr(s, m)

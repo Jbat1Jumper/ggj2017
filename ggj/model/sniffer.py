@@ -1,6 +1,6 @@
 
 
-class Sniffer():
+class Sniffer(object):
 
     def __init__(self, model):
         self.model = model
@@ -11,17 +11,13 @@ class Sniffer():
         ret = {}
         s = self.model.scene
 
-        i = 0
-        for ball in s.left_tube.balls:
+        for i, ball in enumerate(s.left_tube.balls):
             if ball is not None:
                 ret[ball] = ('left tube', i)
-            i += 1
 
-        i = 0
-        for ball in s.right_tube.balls:
+        for i, ball in enumerate(s.right_tube.balls):
             if ball is not None:
                 ret[ball] = ('right tube', i)
-            i += 1
 
         for y in range(s.table.y):
             for x in range(s.table.x):
@@ -32,13 +28,16 @@ class Sniffer():
         return ret
 
     def get_ball_from_table(self):
-        return self.game.model.ball_from_table
+        return self.model.ball_from_table
 
     def get_ball_from_tube(self):
-        return self.game.model.ball_from_tube
+        return self.model.ball_from_tube
 
     def get_left_magnet_position(self):
         return self.model.scene.left_magnet.current_pos
 
     def get_right_magnet_position(self):
         return self.model.scene.right_magnet.current_pos
+
+    def get_objectives(self):
+        return list(enumerate(x.pattern for x in self.model.objectives))

@@ -3,6 +3,7 @@ from pyxit.vec import Vec
 from ..entities import (
     Tube,
     Ball,
+    Objective,
     Magnet
 )
 from ..model import Sniffer
@@ -46,6 +47,10 @@ class ModelMatcherPhase(GamePhase):
             ball = Ball(self.game, model_ball, pos)
             self.game.create_entity(ball)
 
+        for i, pattern in self.sniffer.get_objectives():
+            o = Objective(self.game, pattern, self.objective_position(i))
+            self.game.create_entity(o)
+
     def run_phase(self, entities, delta):
 
         balls_data = self.sniffer.get_balls()
@@ -68,6 +73,8 @@ class ModelMatcherPhase(GamePhase):
                     entity.pos = self.left_magnet_position()
                 else:
                     entity.pos = self.right_magnet_position()
+            elif isinstance(entity, Objective):
+                pass
 
     def ball_position(self, location):
         if location[0] == 'left tube':
@@ -92,3 +99,6 @@ class ModelMatcherPhase(GamePhase):
         i = self.sniffer.get_right_magnet_position()
         return Vec(TILE * 16,
                    TILE * 9 - TILE * i)
+
+    def objective_position(self, x):
+        return Vec(TILE * 2 + TILE * 4 * x, TILE * 2)

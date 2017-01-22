@@ -1,3 +1,4 @@
+import check_objectives
 from . import BaseState
 
 
@@ -15,10 +16,16 @@ class SelectRowState(BaseState):
         self.game.model.down()
 
     def on_left_press(self):
-        self.game.model.left()
+        if self.game.model.left():
+            self.change_to_check_condition_state()
 
     def on_right_press(self):
-        self.game.model.right()
+        if self.game.model.right():
+            self.change_to_check_condition_state()
 
     def on_swap_player_press(self):
         self.game.model.switch_player()
+
+    def change_to_check_condition_state(self):
+        s = check_objectives.CheckObjectivesState(self.game)
+        self.game.state_machine.change_state(s)
