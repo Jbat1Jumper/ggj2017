@@ -23,7 +23,7 @@ class Objective(Entity):
         self.set_sprites()
 
     def render(self):
-        surface = pg.Surface((16 * len(self.sprites), 16), pg.SRCALPHA)
+        surface = pg.Surface((16, 16 * len(self.sprites)), pg.SRCALPHA)
         for i, s in enumerate(self.sprites):
-            surface.blit(s.render(), (16 * i, 0))
+            surface.blit(s.render(), (0, 16 * i))
         return surface

@@ -101,7 +101,7 @@ class ModelMatcherPhase(GamePhase):
                    TILE * 9 - TILE * i)
 
     def objective_position(self, x):
-        return Vec(TILE * 2 + TILE * 4 * x, TILE * 2)
+        return Vec(TILE * 2 + TILE * 2 * x, TILE)
 
     def update_objective(self, old_obj, new_obj):
         for i, ent in enumerate(self.game.entities):
