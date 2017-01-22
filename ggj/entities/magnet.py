@@ -11,7 +11,7 @@ class Magnet(PlayerSprite):
         self.is_left = is_left
         if not is_left:
             self.flip()
-        self.change_to('redgnome_idle')
+        self.change_to('idle')
 
     def do_not_render(self):
         surface = pg.Surface((16, 16), pg.SRCALPHA)
@@ -33,9 +33,12 @@ class Magnet(PlayerSprite):
 
         a.create(500, foo)
 
-    def push(self):
-        self.change_to('redgnome_sendwaves')
+    def push(self, is_pull=False):
+        if is_pull:
+            self.change_to('sendwavesin')
+        else:
+            self.change_to('sendwavesout')
 
         def callback():
-            self.change_to('redgnome_idle')
+            self.change_to('idle')
         self.game.animation.create(800, None, callback)
