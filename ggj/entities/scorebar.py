@@ -36,15 +36,11 @@ class ScoreBar(Entity):
             if filled_positions <= 0:
                 break
             a = min(filled_positions, self.animations_per_tile)
-            print('Setting sprite ', i, 'to a:', a, 'milliseconds:', 100*a-100)
             sprite.change_to(milliseconds=100*a-100)
             filled_positions -= self.animations_per_tile
 
     def render(self):
         surface = pg.Surface((16 * len(self.sprites), 16), pg.SRCALPHA)
         for i, s in enumerate(self.sprites):
-            print s.current_animation
-            print s.current_milliseconds
-            print s.animations
             surface.blit(s.render(), (16 * i, 0))
         return surface
