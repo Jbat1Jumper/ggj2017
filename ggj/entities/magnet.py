@@ -32,3 +32,10 @@ class Magnet(PlayerSprite):
             self.pos.y = start.y * (1 - progress) + end.y * progress
 
         a.create(500, foo)
+
+    def push(self):
+        self.change_to('redgnome_sendwaves')
+
+        def callback():
+            self.change_to('redgnome_idle')
+        self.game.animation.create(800, None, callback)

@@ -31,34 +31,34 @@ def create_foregraund(game):
 
 
 def create_nahuelito(game):
-    n = PlayerSprite(game, 'assets/cabeza nahuelito.pyxel', 16 * 4, 16 * 9,
+    n = PlayerSprite(game, 'assets/cabeza nahuelito.pyxel', 16 * 4, 16 * 10,
                      sprite_layer='Layer 0')
     game.create_entity(n)
     game.props['n_izq_cabeza'] = n
 
-    n = PlayerSprite(game, 'assets/cuerpo nahuelito.pyxel', 16, 16 * 6,
+    n = PlayerSprite(game, 'assets/cuerpo nahuelito.pyxel', 16, 16 * 7,
                      sprite_layer='Layer 0')
     game.create_entity(n)
     game.props['n_izq_cuerpo'] = n
 
-    n = PlayerSprite(game, 'assets/culo de nahuelito.pyxel', 16, 16 * 5,
+    n = PlayerSprite(game, 'assets/culo de nahuelito.pyxel', 16, 16 * 6,
                      sprite_layer='Layer 0')
     game.create_entity(n)
     game.props['n_izq_culo'] = n
 
-    n = PlayerSprite(game, 'assets/cabeza nahuelito.pyxel', 16 * 15, 16 * 9,
+    n = PlayerSprite(game, 'assets/cabeza nahuelito.pyxel', 16 * 15, 16 * 10,
                      sprite_layer='Layer 0')
     n.flip()
     game.create_entity(n)
     game.props['n_izq_cabeza'] = n
 
-    n = PlayerSprite(game, 'assets/cuerpo nahuelito.pyxel', 16 * 17, 16 * 6,
+    n = PlayerSprite(game, 'assets/cuerpo nahuelito.pyxel', 16 * 17, 16 * 7,
                      sprite_layer='Layer 0')
     n.flip()
     game.create_entity(n)
     game.props['n_izq_cuerpo'] = n
 
-    n = PlayerSprite(game, 'assets/culo de nahuelito.pyxel', 16 * 17, 16 * 5,
+    n = PlayerSprite(game, 'assets/culo de nahuelito.pyxel', 16 * 17, 16 * 6,
                      sprite_layer='Layer 0')
     n.flip()
     game.create_entity(n)
