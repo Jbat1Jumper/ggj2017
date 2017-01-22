@@ -45,9 +45,12 @@ class Model(object):
         else:
             pos = self.scene.right_magnet.current_pos
         self.ball_from_table = self.scene.table.remove_from_left(pos)
+        if not self.ball_from_table:
+            return False
         self.ball_from_tube = self.scene.left_tube.add_ball(self.ball_from_table)
         if self.ball_from_tube:
             self.scene.table.add_ball_at_the_top(self.ball_from_tube)
+        return True
 
     def right(self):
         if self.currently_left:
@@ -55,9 +58,12 @@ class Model(object):
         else:
             pos = self.scene.right_magnet.current_pos
         self.ball_from_table = self.scene.table.remove_from_right(pos)
+        if not self.ball_from_table:
+            return False
         self.ball_from_tube = self.scene.right_tube.add_ball(self.ball_from_table)
         if self.ball_from_tube:
             self.scene.table.add_ball_at_the_top(self.ball_from_tube)
+        return True
 
     @property
     def objectives(self):
