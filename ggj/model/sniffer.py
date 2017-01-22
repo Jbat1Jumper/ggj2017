@@ -40,4 +40,4 @@ class Sniffer(object):
         return self.model.scene.right_magnet.current_pos
 
     def get_objectives(self):
-        return list(enumerate(x.pattern for x in self.model.objectives))
+        return list(enumerate(self.model.objectives))

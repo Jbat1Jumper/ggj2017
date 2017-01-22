@@ -47,8 +47,8 @@ class ModelMatcherPhase(GamePhase):
             ball = Ball(self.game, model_ball, pos)
             self.game.create_entity(ball)
 
-        for i, pattern in self.sniffer.get_objectives():
-            o = Objective(self.game, pattern, self.objective_position(i))
+        for i, objective in self.sniffer.get_objectives():
+            o = Objective(self.game, objective, self.objective_position(i))
             self.game.create_entity(o)
 
     def run_phase(self, entities, delta):
@@ -102,3 +102,8 @@ class ModelMatcherPhase(GamePhase):
 
     def objective_position(self, x):
         return Vec(TILE * 2 + TILE * 4 * x, TILE * 2)
+
+    def update_objective(self, old_obj, new_obj):
+        for i, ent in enumerate(self.game.entities):
+            if isinstance(ent, Objective) and ent.ref == old_obj:
+                ent.change_ref(new_obj)
