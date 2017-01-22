@@ -7,9 +7,11 @@ from .phases import (
     RenderPhase,
     AnimationPhase
 )
-from .entities import (
-    Background,
-    Foreground
+from .entities.props import (
+    prepare_props,
+    create_nahuelito,
+    create_background,
+    create_foregraund
 )
 from .states import SelectRowState
 from .model import Model
@@ -27,7 +29,9 @@ class CustomGame(Game):
     def load(self):
         self.model = Model(seed=7)
 
-        Background(self)
+        prepare_props(self)
+
+        create_background(self)
 
         self.events = EventsPhase(self)
         self.animation = AnimationPhase(self)
@@ -35,7 +39,9 @@ class CustomGame(Game):
         self.model_matcher = ModelMatcherPhase(self)
         self.render = RenderPhase(self, self.screen, self.tilemap_size)
 
-        Foreground(self)
+        create_nahuelito(self)
+
+        create_foregraund(self)
 
         self.add_phase(self.events)
         self.add_phase(self.state_machine)

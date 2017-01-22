@@ -26,7 +26,7 @@ class Tube(Entity):
         return Vec(self.pos.x + self.body_h_offset,
                    self.pos.y + v_offset - TILE * index)
 
-    def render(self):
+    def do_not_render(self):
         surface = pg.Surface((TILE * 5, TILE * 7), pg.SRCALPHA)
         surface.fill((40, 40, 0))
         return surface
