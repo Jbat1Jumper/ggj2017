@@ -17,6 +17,7 @@ class Ball(PlayerSprite):
         self.ref = ref
         animation = COLORS[self.ref.color]
         self.change_to(animation)
+        self.old_pos_x = None
 
     def animate(self, delta):
         self.advance(delta)
