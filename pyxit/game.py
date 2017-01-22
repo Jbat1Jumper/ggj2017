@@ -21,7 +21,7 @@ class Game(object):
             return
         self.entities.append(entity)
         for phase in self.phases:
-            phase.create_entity(entity)
+            phase.entity_created(entity)
 
     def load(self):
         pass
