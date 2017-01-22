@@ -7,10 +7,10 @@ from pyxit.entity import PhysicalEntity
 
 class PlayerSprite(PhysicalEntity):
 
-    def __init__(self, game, path, x, y):
+    def __init__(self, game, path, x, y, sprite_layer=None):
         super(PlayerSprite, self).__init__(game, x, y, 1, 1)  # (1, 1) is temporary
         self.static = False
-        self.sprite_layer = self.sprite_layer if hasattr(self, 'sprite_layer') else 'Sprite'
+        self.sprite_layer = sprite_layer or 'Sprite'
         self.animations = {}
         self.current_animation = None
         self.current_milliseconds = 0
