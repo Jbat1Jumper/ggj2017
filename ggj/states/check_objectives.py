@@ -55,4 +55,5 @@ class GameFinishedState(BaseState):
     def enter(self):
         print('Entering game finished')
         self.game.model_matcher.update_positions()
+        self.game.restart()
         # game finished
