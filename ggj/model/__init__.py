@@ -6,7 +6,7 @@ from .player import Player
 from .sniffer import Sniffer
 from .objectives import PatternObjectivesGenerator, Score
 
-NUMBER_OF_OBJECTIVES = 3
+NUMBER_OF_OBJECTIVES = 6
 PATTERN_LENGTH = 3
 MAX_SCORE = 9
 

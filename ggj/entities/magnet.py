@@ -9,11 +9,17 @@ class Magnet(PlayerSprite):
     def __init__(self, game, pos, is_left=False):
         super(Magnet, self).__init__(game, 'assets/red_gnome.pyxel', pos.x, pos.y, 'Layer 0')
         self.is_left = is_left
+        if not is_left:
+            self.flip()
+        self.change_to('redgnome_idle')
 
     def do_not_render(self):
         surface = pg.Surface((16, 16), pg.SRCALPHA)
         surface.fill((230, 0, 0))
         return surface
+
+    def animate(self, delta):
+        self.advance(delta)
 
     def move(self, pos):
         a = self.game.animation

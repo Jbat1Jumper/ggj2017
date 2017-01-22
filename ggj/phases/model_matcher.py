@@ -97,7 +97,7 @@ class ModelMatcherPhase(GamePhase):
 
     def right_magnet_position(self):
         i = self.sniffer.get_right_magnet_position()
-        return Vec(TILE * 16,
+        return Vec(TILE * 15,
                    TILE * 9 - TILE * i)
 
     def objective_position(self, x):
