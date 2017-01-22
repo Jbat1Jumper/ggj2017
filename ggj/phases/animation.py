@@ -15,11 +15,14 @@ class AnimationPhase(GamePhase):
                 to_del.append(a)
         for a in to_del:
             self.animations.remove(a)
+            if a.next:
+                self.animations.append(a.next)
             a.die()
 
     def create(self, time, function, callback=None):
         a = Animation(time, function, callback)
         self.animations.append(a)
+        return a
 
 
 class Animation():
@@ -29,6 +32,7 @@ class Animation():
         self.function = function
         self.callback = callback
         self.ended = False
+        self.next = None
 
     def update(self, delta):
         if self.current_ms >= self.end_ms:
@@ -43,3 +47,7 @@ class Animation():
     def die(self):
         if self.callback:
             self.callback()
+
+    def chain(self, time, function, callback=None):
+        self.next = Animation(time, function, callback)
+        return self.next
