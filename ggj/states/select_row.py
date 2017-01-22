@@ -17,7 +17,7 @@ class SelectRowState(BaseState):
 
     def on_left_press(self):
         if self.game.model.left():
-            self.animate_magnet()
+            self.animate_magnet(to_left=True)
             self.change_to_check_condition_state()
 
     def on_right_press(self):
@@ -25,11 +25,11 @@ class SelectRowState(BaseState):
             self.animate_magnet()
             self.change_to_check_condition_state()
 
-    def animate_magnet(self):
+    def animate_magnet(self, to_left=False):
         if self.game.model.currently_left:
-            self.game.model_matcher.left_magnet.push()
+            self.game.model_matcher.left_magnet.push(is_pull=to_left)
         else:
-            self.game.model_matcher.right_magnet.push()
+            self.game.model_matcher.right_magnet.push(is_pull=not to_left)
 
     def on_swap_player_press(self):
         self.game.model.switch_player()
