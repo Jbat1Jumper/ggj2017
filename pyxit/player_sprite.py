@@ -83,10 +83,10 @@ class PlayerSprite(PhysicalEntity):
     def advance(self, milliseconds):
         self.current_milliseconds += milliseconds
 
-    def change_to(self, animation_name, milliseconds=None):
+    def change_to(self, animation_name=None, milliseconds=None):
         if milliseconds is not None:
             self.current_milliseconds = milliseconds
-        if animation_name == self.current_animation:
+        if animation_name is None or animation_name == self.current_animation:
             return
         if animation_name not in self.animations:
             raise Exception('no such animation {}'.format(animation_name))

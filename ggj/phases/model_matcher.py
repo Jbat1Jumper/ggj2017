@@ -4,7 +4,8 @@ from ..entities import (
     Tube,
     Ball,
     Objective,
-    Magnet
+    Magnet,
+    ScoreBar
 )
 from ..model import Sniffer
 
@@ -51,6 +52,13 @@ class ModelMatcherPhase(GamePhase):
             o = Objective(self.game, objective, self.objective_position(i))
             self.game.create_entity(o)
 
+        self.left_scorebar = ScoreBar(game, is_left=True,
+                                      pos=self.left_scorebar_position())
+        self.game.create_entity(self.left_scorebar)
+        self.right_scorebar = ScoreBar(game, is_left=False,
+                                       pos=self.right_scorebar_position())
+        self.game.create_entity(self.right_scorebar)
+
     def run_phase(self, entities, delta):
 
         balls_data = self.sniffer.get_balls()
@@ -74,6 +82,8 @@ class ModelMatcherPhase(GamePhase):
                 else:
                     entity.move(rm_pos)
             elif isinstance(entity, Objective):
+                pass
+            elif isinstance(entity, ScoreBar):
                 pass
 
     def ball_position(self, location):
@@ -102,6 +112,12 @@ class ModelMatcherPhase(GamePhase):
 
     def objective_position(self, x):
         return Vec(TILE * 2 + TILE * 2 * x, TILE)
+
+    def left_scorebar_position(self):
+        return Vec(TILE, TILE * 13)
+
+    def right_scorebar_position(self):
+        return Vec(TILE * 16, TILE * 13)
 
     def update_objective(self, old_obj, new_obj):
         for i, ent in enumerate(self.game.entities):

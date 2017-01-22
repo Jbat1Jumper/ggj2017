@@ -23,8 +23,12 @@ class CheckWinConditionState(BaseState):
 
     def enter(self):
         print('Entering check win')
-        self.left, self.right = self.game.model.check_win_conditions()
-        self.game.animation.create(500, None, self.animation_ended)
+        g = self.game
+        self.left, self.right = g.model.check_win_conditions()
+        score = g.model.score
+        g.model_matcher.left_scorebar.set_score(score.left, score.max_score)
+        g.model_matcher.right_scorebar.set_score(score.right, score.max_score)
+        g.animation.create(500, None, self.animation_ended)
 
     def animation_ended(self):
         if self.left or self.right:
