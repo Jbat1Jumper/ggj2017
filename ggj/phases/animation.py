@@ -17,7 +17,7 @@ class AnimationPhase(GamePhase):
             self.animations.remove(a)
             a.die()
 
-    def create(self, time, function, callback):
+    def create(self, time, function, callback=None):
         a = Animation(time, function, callback)
         self.animations.append(a)
 

@@ -65,14 +65,14 @@ class ModelMatcherPhase(GamePhase):
             if isinstance(entity, Ball):
                 location = balls_data[entity.ref]
                 new_pos = self.ball_position(location)
-                entity.pos = new_pos
+                entity.move(new_pos)
             elif isinstance(entity, Tube):
                 pass
             elif isinstance(entity, Magnet):
                 if entity.is_left:
-                    entity.pos = self.left_magnet_position()
+                    entity.move(lm_pos)
                 else:
-                    entity.pos = self.right_magnet_position()
+                    entity.move(rm_pos)
             elif isinstance(entity, Objective):
                 pass
 
