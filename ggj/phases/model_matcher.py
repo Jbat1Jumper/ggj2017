@@ -8,7 +8,7 @@ from ..entities import (
 from ..model import Sniffer
 
 TILE = 16
-DEBUG = True
+DEBUG = False
 
 
 class ModelMatcherPhase(GamePhase):
