@@ -37,10 +37,10 @@ class CustomGame(Game):
     def initialize(self):
         self.model = Model()
 
+        self.model_matcher = ModelMatcherPhase(self)
         self.events = EventsPhase(self)
         self.animation = AnimationPhase(self)
         self.state_machine = StateMachinePhase(self, SelectRowState(self))
-        self.model_matcher = ModelMatcherPhase(self)
         self.render = RenderPhase(self, self.screen, self.tilemap_size)
 
         create_nahuelito(self)

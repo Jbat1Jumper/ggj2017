@@ -68,6 +68,9 @@ class ModelMatcherPhase(GamePhase):
                 r.append(b)
         return r
 
+    def update_data(self):
+        self.old_ball_data = self.sniffer.get_balls()
+
     def update_positions(self):
         self.update_left_magnet_position()
         self.update_right_magnet_position()

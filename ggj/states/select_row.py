@@ -7,7 +7,7 @@ class SelectRowState(BaseState):
         pass
 
     def enter(self):
-        pass
+        self.game.model_matcher.update_data()
 
     def on_up_left_press(self):
         if self.game.model.currently_left:
