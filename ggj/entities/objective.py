@@ -1,7 +1,7 @@
 import pygame as pg
 from pyxit.entity import Entity
 from pyxit.player_sprite import PlayerSprite
-from .ball import Ball, COLORS
+from ball import Ball, COLORS
 
 
 class Objective(Entity):

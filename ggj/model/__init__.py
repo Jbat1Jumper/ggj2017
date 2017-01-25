@@ -1,10 +1,10 @@
 
 import random
 
-from .scene import Scene
-from .player import Player
-from .sniffer import Sniffer
-from .objectives import PatternObjectivesGenerator, Score
+from scene import Scene
+from player import Player
+from sniffer import Sniffer
+from objectives import PatternObjectivesGenerator, Score
 
 NUMBER_OF_OBJECTIVES = 6
 PATTERN_LENGTH = 3

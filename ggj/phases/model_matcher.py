@@ -1,13 +1,13 @@
 from pyxit.game_phase import GamePhase
 from pyxit.vec import Vec
-from ..entities import (
+from entities import (
     Tube,
     Ball,
     Objective,
     Magnet,
     ScoreBar
 )
-from ..model import Sniffer
+from model import Sniffer
 
 TILE = 16
 DEBUG = False

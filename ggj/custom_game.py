@@ -1,20 +1,20 @@
 
 from pyxit.game import Game
-from .phases import (
+from phases import (
     StateMachinePhase,
     EventsPhase,
     ModelMatcherPhase,
     RenderPhase,
     AnimationPhase
 )
-from .entities.props import (
+from entities.props import (
     prepare_props,
     create_nahuelito,
     create_background,
     create_foregraund
 )
-from .states import SelectRowState
-from .model import Model
+from states import SelectRowState
+from model import Model
 
 TILE = 16
 

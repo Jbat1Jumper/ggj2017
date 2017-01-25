@@ -1,6 +1,6 @@
 import check_objectives
 from . import BaseState
-from ..entities import Ball
+from entities import Ball
 from pyxit.vec import Vec
 
 
